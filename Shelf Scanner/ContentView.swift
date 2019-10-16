@@ -40,7 +40,7 @@ struct ContentView : View {
 
         let publisher = recognizedText.objectWillChange
         
-        let converter = Publishers.Map(upstream: publisher) { note in
+        let converter = Publishers.Map(upstream: publisher) { _ in
             recognizedText.value
         }
         
