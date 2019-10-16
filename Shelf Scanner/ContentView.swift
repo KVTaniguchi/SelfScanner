@@ -29,22 +29,29 @@ import Combine
 //print(john.haveBirthday())
 
 struct ContentView : View {
-    @ObservedObject var recognizedText: RecognizedText = RecognizedText()
+    let viewPort: ViewPort
     
     var watcher = Watcher(text: "Watch my value change")
     
     init() {
         let subscriber = Subscribers.Assign(object: watcher, keyPath: \.text)
-//        recognizedText.didChange.subscribe(subscriber)
+        let recognizedText: RecognizedText = RecognizedText(value: "Point me at a shelf")
+        viewPort = ViewPort(recognizedText: recognizedText)
+
+        let publisher = recognizedText.objectWillChange
         
+        let converter = Publishers.Map(upstream: publisher) { note in
+            recognizedText.value
+        }
         
+        converter.subscribe(subscriber)
     }
  
     var body: some View {
         NavigationView {
             VStack {
                 Text(watcher.text)
-                ViewPort(recognizedText: recognizedText)
+                viewPort
             }
         }   
     }

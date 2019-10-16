@@ -10,12 +10,9 @@ import Combine
 import SwiftUI
  
 final class RecognizedText: ObservableObject {
- 
-    let didChange = PassthroughSubject<String, Error>()
- 
-    var value: String = "Scan document to see its contents" {
-        didSet {
-            didChange.send(value)
-        }
+    @Published var value: String
+    
+    init(value: String) {
+        self.value = value
     }
 }
