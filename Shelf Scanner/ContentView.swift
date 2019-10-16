@@ -9,36 +9,20 @@
 import SwiftUI
 import Combine
 
-//class Contact: ObservableObject {
-//    @Published var name: String
-//    @Published var age: Int
-//
-//    init(name: String, age: Int) {
-//        self.name = name
-//        self.age = age
-//    }
-//
-//    func haveBirthday() -> Int {
-//        age += 1
-//        return age
-//    }
-//}
-//
-//let john = Contact(name: "John Appleseed", age: 24)
-//john.objectWillChange.sink { _ in print("\(john.age) will change") }
-//print(john.haveBirthday())
-
 struct ContentView : View {
     let viewPort: ViewPort
+    @ObservedObject var reco = RecognizedText(value: "none")
     
-    var watcher = Watcher(text: "Watch my value change")
+    @ObservedObject var watcher = Watcher(text: "Watch my value change")
     
     init() {
-        let subscriber = Subscribers.Assign(object: watcher, keyPath: \.text)
+        
         let recognizedText: RecognizedText = RecognizedText(value: "Point me at a shelf")
         viewPort = ViewPort(recognizedText: recognizedText)
+        
+        let subscriber = Subscribers.Assign(object: watcher, keyPath: \.text)
 
-        let publisher = recognizedText.objectWillChange
+        let publisher = recognizedText.objectWillChange.receive(on: DispatchQueue.main)
         
         let converter = Publishers.Map(upstream: publisher) { _ in
             recognizedText.value
@@ -57,8 +41,8 @@ struct ContentView : View {
     }
 }
 
-class Watcher {
-    var text: String
+class Watcher: ObservableObject {
+    @Published var text: String
     
     init(text: String) {
         self.text = text
