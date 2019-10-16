@@ -11,8 +11,6 @@ import Combine
 
 struct ContentView : View {
     let viewPort: ViewPort
-    @ObservedObject var reco = RecognizedText(value: "none")
-    
     @ObservedObject var watcher = Watcher(text: "Watch my value change")
     
     init() {
@@ -54,5 +52,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-/// the view port is a subscriber?
