@@ -13,7 +13,7 @@
 		BD11063F234859ED007B3433 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD11063E234859ED007B3433 /* Assets.xcassets */; };
 		BD110642234859ED007B3433 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD110641234859ED007B3433 /* Preview Assets.xcassets */; };
 		BD110645234859ED007B3433 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD110643234859ED007B3433 /* LaunchScreen.storyboard */; };
-		BD11064D23485C1A007B3433 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11064C23485C1A007B3433 /* ScanningView.swift */; };
+		BD11064D23485C1A007B3433 /* ViewPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11064C23485C1A007B3433 /* ViewPort.swift */; };
 		BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110650234862B9007B3433 /* TextRecognizer.swift */; };
 		BD110653234863CC007B3433 /* RecognizedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110652234863CC007B3433 /* RecognizedText.swift */; };
 		BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110654235213FA007B3433 /* WellnessRecognizer.swift */; };
@@ -29,7 +29,7 @@
 		BD110641234859ED007B3433 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD110644234859ED007B3433 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD110646234859ED007B3433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BD11064C23485C1A007B3433 /* ScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
+		BD11064C23485C1A007B3433 /* ViewPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPort.swift; sourceTree = "<group>"; };
 		BD110650234862B9007B3433 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		BD110652234863CC007B3433 /* RecognizedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizedText.swift; sourceTree = "<group>"; };
 		BD110654235213FA007B3433 /* WellnessRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessRecognizer.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 				BD110643234859ED007B3433 /* LaunchScreen.storyboard */,
 				BD110646234859ED007B3433 /* Info.plist */,
 				BD110640234859ED007B3433 /* Preview Content */,
-				BD11064C23485C1A007B3433 /* ScanningView.swift */,
+				BD11064C23485C1A007B3433 /* ViewPort.swift */,
 				BD110650234862B9007B3433 /* TextRecognizer.swift */,
 				BD110652234863CC007B3433 /* RecognizedText.swift */,
 				BD110654235213FA007B3433 /* WellnessRecognizer.swift */,
@@ -164,7 +164,7 @@
 				BDC8921A2354190800602A34 /* TextBoxes.swift in Sources */,
 				BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */,
 				BD110639234859EC007B3433 /* AppDelegate.swift in Sources */,
-				BD11064D23485C1A007B3433 /* ScanningView.swift in Sources */,
+				BD11064D23485C1A007B3433 /* ViewPort.swift in Sources */,
 				BD110653234863CC007B3433 /* RecognizedText.swift in Sources */,
 				BD11063B234859EC007B3433 /* SceneDelegate.swift in Sources */,
 				BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */,

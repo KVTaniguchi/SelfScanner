@@ -11,8 +11,9 @@ import Vision
 import VisionKit
 import SwiftUI
 
+/// this is a publisher
 public struct TextRecognizer {
-    @Binding var recognizedText: String
+    var recognizedText: RecognizedText
     
     let sequenceHandler = VNSequenceRequestHandler()
     
@@ -30,7 +31,7 @@ public struct TextRecognizer {
                 guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
                 tmp += candidate.string + "\n"
             }
-            self.recognizedText = tmp
+            self.recognizedText.value = tmp
         }
         do {
             try sequenceHandler.perform([req], on: buffer)

@@ -13,12 +13,12 @@ import VisionKit
 import AVKit
 
 struct ViewPort: UIViewControllerRepresentable {
-    @Binding var recognizedText: String
+    var recognizedText: RecognizedText
     
     typealias UIViewControllerType = CameraLayerViewController
     
     func makeCoordinator() -> MyCoordinator {
-        return MyCoordinator(recognizedText: $recognizedText)
+        return MyCoordinator(recognizedText: recognizedText)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ViewPort>) -> CameraLayerViewController {
@@ -27,15 +27,14 @@ struct ViewPort: UIViewControllerRepresentable {
         return vc
     }
     
-    func updateUIViewController(_ uiViewController: CameraLayerViewController, context: UIViewControllerRepresentableContext<ViewPort>) { }
+    func updateUIViewController(_ uiViewController: CameraLayerViewController,
+                                context: UIViewControllerRepresentableContext<ViewPort>) { }
 }
 
 final class CameraLayerViewController: UIViewController {
     let session = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer!
     weak var sampleOutputDelegate: AVCaptureVideoDataOutputSampleBufferDelegate?
-    
-    let recognizedTextLabel = UILabel()
     
     let dataOutputQueue = DispatchQueue(
     label: "video data queue",
@@ -45,16 +44,6 @@ final class CameraLayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        recognizedTextLabel.textColor = .white
-        recognizedTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(recognizedTextLabel)
-        
-        NSLayoutConstraint.activate([
-            recognizedTextLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            recognizedTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recognizedTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
         
         configureCaptureSession()
         session.startRunning()
@@ -98,8 +87,8 @@ final class CameraLayerViewController: UIViewController {
 class MyCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let textRecognizer: TextRecognizer
     
-    init(recognizedText: Binding<String>) {
-       textRecognizer = TextRecognizer(recognizedText: recognizedText)
+    init(recognizedText: RecognizedText) {
+        textRecognizer = TextRecognizer(recognizedText: recognizedText)
     }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
