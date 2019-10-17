@@ -39,6 +39,7 @@ struct ContentView : View {
     }
 }
 
+// this will be fleshed out into a class that represents each item on the shelf
 class Watcher: ObservableObject {
     @Published var text: String
     
