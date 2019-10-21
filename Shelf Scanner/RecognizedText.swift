@@ -22,3 +22,13 @@ final class RecognizedText: ObservableObject {
         self.value = value
     }
 }
+
+final class RecognizedItemPublisher: ObservableObject {
+    @Published var values: [ShelfItem] = [] {
+        didSet {
+            didChange.send()
+        }
+    }
+    
+    let didChange = PassthroughSubject<Void, Never>()
+}

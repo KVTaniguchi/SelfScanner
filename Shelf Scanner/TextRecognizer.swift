@@ -33,6 +33,7 @@ public struct TextRecognizer {
             }
             self.recognizedText.value = tmp
         }
+        req.recognitionLanguages = ["en-us"]
         do {
             try sequenceHandler.perform([req], on: buffer)
         } catch {
@@ -41,7 +42,4 @@ public struct TextRecognizer {
     }
 }
 
-/// rectangles around sectors
-/// "ar" like view
-///
-/// "
+

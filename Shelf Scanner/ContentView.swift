@@ -10,30 +10,21 @@ import SwiftUI
 import Combine
 
 struct ContentView : View {
-    let viewPort: ViewPort
-    @ObservedObject var watcher = Watcher(text: "Watch my value change")
+//    @ObservedObject var watcher = Watcher(text: "Watch my value change")
+    @State var searchTerm: String = ""
     
     init() {
-        
-        let recognizedText: RecognizedText = RecognizedText(value: "Point me at a shelf")
-        viewPort = ViewPort(recognizedText: recognizedText)
-        
-        let subscriber = Subscribers.Assign(object: watcher, keyPath: \.text)
 
-        let publisher = recognizedText.objectWillChange.receive(on: DispatchQueue.main)
-        
-        let converter = Publishers.Map(upstream: publisher) { _ in
-            recognizedText.value
-        }
-        
-        converter.subscribe(subscriber)
     }
  
     var body: some View {
         NavigationView {
             VStack {
-                Text(watcher.text)
-                viewPort
+                // text field with clear button
+                TextField("Enter Search Term", text: $searchTerm)
+                NavigationLink(destination: VisualSearchView(searchTerm: searchTerm)) {
+                    Text("Search \(searchTerm)")
+                }.navigationBarTitle("Searching \(searchTerm)")
             }
         }   
     }
