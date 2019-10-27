@@ -12,10 +12,6 @@ import Combine
 struct ContentView : View {
 //    @ObservedObject var watcher = Watcher(text: "Watch my value change")
     @State var searchTerm: String = ""
-    
-    init() {
-
-    }
  
     var body: some View {
         NavigationView {
@@ -24,7 +20,7 @@ struct ContentView : View {
                 TextField("Enter Search Term", text: $searchTerm)
                 NavigationLink(destination: VisualSearchView(searchTerm: searchTerm)) {
                     Text("Search \(searchTerm)")
-                }.navigationBarTitle("Searching \(searchTerm)")
+                    }.navigationBarTitle("Searching \(searchTerm)")
             }
         }   
     }

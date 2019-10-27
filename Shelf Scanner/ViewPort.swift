@@ -14,11 +14,16 @@ import AVKit
 
 struct ViewPort: UIViewControllerRepresentable {
     let recognizedItemPublisher = RecognizedItemPublisher()
+    let searchTerm: String
+    
+    init(searchTerm: String) {
+        self.searchTerm = searchTerm
+    }
     
     typealias UIViewControllerType = CameraLayerViewController
     
     func makeCoordinator() -> MyCoordinator {
-        return MyCoordinator(recognizedItemPublisher: recognizedItemPublisher)
+        return MyCoordinator(recognizedItemPublisher: recognizedItemPublisher, searchTerm: searchTerm)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ViewPort>) -> CameraLayerViewController {
@@ -33,11 +38,11 @@ struct ViewPort: UIViewControllerRepresentable {
 }
 
 class MyCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-//    let textRecognizer: TextRecognizer
     var itemRecognizer: ItemRecognizer
+    let searchTerm: String
     
-    init(recognizedItemPublisher: RecognizedItemPublisher) {
-//        textRecognizer = TextRecognizer(recognizedText: recognizedText)
+    init(recognizedItemPublisher: RecognizedItemPublisher, searchTerm: String) {
+        self.searchTerm = searchTerm
         itemRecognizer = ItemRecognizer(recognizedItemPublisher: recognizedItemPublisher)
     }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -46,6 +51,5 @@ class MyCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         itemRecognizer.recognizedItem(fromBuffer: imageBuffer)
-//        textRecognizer.recognizeText(fromBuffer: imageBuffer)
     }
 }

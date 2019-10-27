@@ -17,7 +17,7 @@ struct VisualSearchView: View {
     }
     
     var body: some View {
-        ViewPort()
+        ViewPort(searchTerm: searchTerm)
     }
 }
 

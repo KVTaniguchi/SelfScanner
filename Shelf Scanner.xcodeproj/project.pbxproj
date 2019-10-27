@@ -23,7 +23,6 @@
 		BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923B2358160200602A34 /* ShelfItem.swift */; };
 		BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */; };
 		BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */; };
-		BDC892422358328300602A34 /* TrackedPolyRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC892412358328300602A34 /* TrackedPolyRect.swift */; };
 		BDC89244235CEB8400602A34 /* ItemRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC89243235CEB8400602A34 /* ItemRecognizer.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +45,6 @@
 		BDC8923B2358160200602A34 /* ShelfItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItem.swift; sourceTree = "<group>"; };
 		BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinder.swift; sourceTree = "<group>"; };
 		BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinderBaseVC.swift; sourceTree = "<group>"; };
-		BDC892412358328300602A34 /* TrackedPolyRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackedPolyRect.swift; sourceTree = "<group>"; };
 		BDC89243235CEB8400602A34 /* ItemRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,7 +93,6 @@
 				BDC8923B2358160200602A34 /* ShelfItem.swift */,
 				BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */,
 				BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */,
-				BDC892412358328300602A34 /* TrackedPolyRect.swift */,
 				BDC89243235CEB8400602A34 /* ItemRecognizer.swift */,
 				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
 				BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */,
@@ -182,7 +179,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDC892422358328300602A34 /* TrackedPolyRect.swift in Sources */,
 				BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */,
 				BDC8921A2354190800602A34 /* TextBoxes.swift in Sources */,
 				BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */,

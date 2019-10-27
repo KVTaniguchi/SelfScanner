@@ -10,7 +10,7 @@ import Foundation
 import Vision
 import VisionKit
 
-struct ItemRecognizer {
+class ItemRecognizer {
     var recognizedItemPublisher: RecognizedItemPublisher
     weak var delegate: VisionTrackerProcessorDelegate?
     
@@ -22,71 +22,73 @@ struct ItemRecognizer {
         self.recognizedItemPublisher = recognizedItemPublisher
     }
     
-    mutating func recognizedItem(fromBuffer buffer: CVImageBuffer) {
+    func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
+        // get the pixel buffer into Core Image
+        let ciImage = CIImage(cvImageBuffer: buffer)
+
+        // convert corners from normalized image coordinates to pixel coordinates
+        let topLeft = observation.topLeft.scaled(to: ciImage.extent.size)
+        let topRight = observation.topRight.scaled(to: ciImage.extent.size)
+        let bottomLeft = observation.bottomLeft.scaled(to: ciImage.extent.size)
+        let bottomRight = observation.bottomRight.scaled(to: ciImage.extent.size)
+
+        // pass those to the filter to extract/rectify the image
+        return ciImage.applyingFilter("CIPerspectiveCorrection", parameters: [
+            "inputTopLeft": CIVector(cgPoint: topLeft),
+            "inputTopRight": CIVector(cgPoint: topRight),
+            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+            "inputBottomRight": CIVector(cgPoint: bottomRight),
+        ])
+    }
+    
+    func recognizedItem(fromBuffer buffer: CVImageBuffer) {
         let rectangleDetectionRequest = VNDetectRectanglesRequest()
         rectangleDetectionRequest.minimumAspectRatio = VNAspectRatio(0.2)
         rectangleDetectionRequest.maximumAspectRatio = VNAspectRatio(1.0)
         rectangleDetectionRequest.minimumSize = Float(0.1)
         rectangleDetectionRequest.maximumObservations = Int(10)
+        rectangleDetectionRequest.minimumConfidence = 0.9
         
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: buffer, orientation: .up, options: [:])
         
         do {
             try imageRequestHandler.perform([rectangleDetectionRequest])
         } catch {
-//            throw VisionTrackerProcessorError.rectangleDetectionFailed
+            print(error.localizedDescription)
         }
         
-        var firstFrameRects: [TrackedPolyRect]? = nil
-        if let rectObservations = rectangleDetectionRequest.results as? [VNRectangleObservation] {
+        if let rectObservations = rectangleDetectionRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
             initialRectObservations = rectObservations
-            var detectedRects = [TrackedPolyRect]()
-            var trackers = [VNTrackRectangleRequest]()
-            for (index, rectangleObservation) in rectObservations.enumerated() {
+
+            for rectangleObservation in rectObservations {
                 
-                let rectColor = TrackedObjectsPalette.color(atIndex: index)
-                detectedRects.append(TrackedPolyRect(observation: rectangleObservation, color: rectColor))
-                // show frame
-                let tracker = VNTrackRectangleRequest(rectangleObservation: rectangleObservation)
-                trackers.append(tracker)
+                let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
+                    guard let textObservations = request.results as? [VNRecognizedTextObservation] else {
+                        print("The observations are of an unexpected type.")
+                        return
+                    }
+                    // Concatenate the recognised text from all the observations.
+                    let maximumCandidates = 1
+                    for observation in textObservations {
+                        guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
+                        // a rect that contains text
+//                        self?.delegate?.drawVisionRequestResults(rect, text: candidate.string)
+                        self?.delegate?.drawVisionRequestResults(rectangleObservation, text: candidate.string)
+                    }
+                }
+                
+                let extractedImage = extractPerspectiveRect(rectangleObservation, from: buffer)
+                do {
+                    try sequenceHandler.perform([textDetection], on: extractedImage)
+                }
+                catch {
+                    print(error)
+                }
+                
             }
-            firstFrameRects = detectedRects
-            
-            // Perform array of requests
-           do {
-            try sequenceHandler.perform(trackers, on: buffer)
-           } catch {
-//               trackingFailedForAtLeastOneObject = true
-           }
-
-           var rects = [TrackedPolyRect]()
-           for processedRequest in trackers {
-               guard let results = processedRequest.results as? [VNObservation] else {
-                   continue
-               }
-               guard let observation = results.first as? VNDetectedObjectObservation else {
-                   continue
-               }
-               // Assume threshold = 0.5f
-            let rectStyle: TrackedPolyRectStyle = observation.confidence > 0.5 ? .solid : .dashed
-//               let knownRect = trackedObjects[observation.uuid]!
-            let tracked = TrackedPolyRect(observation: observation, color: .yellow)
-            rects.append(tracked)
-               // Initialize inputObservation for the next iteration
-//               inputObservations[observation.uuid] = observation
-           }
-
-           // Draw results
-            for rect in rects {
-                print(rect)
-            }
-//           delegate?.displayFrame(buffer, withAffineTransform: videoReader.affineTransform, rects: rects)
+        } else {
+            delegate?.drawVisionRequestResults(nil, text: nil)
         }
-        
-        
-        // get a rectangle
-        // run text recognizer on the thing from a rectangle
-        // run wellness recognizer on thing from a rectangle
     }
 }
 
@@ -133,6 +135,13 @@ struct TrackedObjectsPalette {
 }
 
 protocol VisionTrackerProcessorDelegate: class {
-    func displayFrame(_ frame: CVPixelBuffer?, withAffineTransform transform: CGAffineTransform, rects: [TrackedPolyRect]?)
+    func drawVisionRequestResults(_ rectangleObservation: VNRectangleObservation?, text: String?)
     func displayFrameCounter(_ frame: Int)
+}
+
+extension CGPoint {
+   func scaled(to size: CGSize) -> CGPoint {
+       return CGPoint(x: self.x * size.width,
+                      y: self.y * size.height)
+   }
 }
