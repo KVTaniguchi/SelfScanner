@@ -1,67 +1,84 @@
-/*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Contains the object recognition view controller for the Breakfast Finder.
-*/
-
 import UIKit
 import AVFoundation
 import Vision
 
-
 class VisionObjectRecognitionViewController: BFViewController {
-    
     private var detectionOverlay: CALayer! = nil
+    let sequenceHandler = VNSequenceRequestHandler()
+    let rectangleRequest = VNDetectRectanglesRequest()
     
     // Vision parts
     private var requests = [VNRequest]()
     
-    @discardableResult
-    func setupVision() -> NSError? {
-        // Setup Vision parts
-        let error: NSError! = nil
+    func setupVision() {
+        rectangleRequest.minimumAspectRatio = VNAspectRatio(0.2)
+        rectangleRequest.maximumAspectRatio = VNAspectRatio(1.0)
+        rectangleRequest.minimumSize = Float(0.1)
+        rectangleRequest.maximumObservations = Int(10)
+        rectangleRequest.minimumConfidence = 0.9
         
-        guard let modelURL = Bundle.main.url(forResource: "ObjectDetector", withExtension: "mlmodelc") else {
-            return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
-        }
-        do {
-            let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
-                DispatchQueue.main.async(execute: {
-                    // perform all the UI updates on the main queue
-                    if let results = request.results {
-                        self.drawVisionRequestResults(results)
-                    }
-                })
-            })
-            self.requests = [objectRecognition]
-        } catch let error as NSError {
-            print("Model loading went wrong: \(error)")
-        }
-        
-        return error
+        self.requests = [rectangleRequest]
     }
     
-    func drawVisionRequestResults(_ results: [Any]) {
+    func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
+        // get the pixel buffer into Core Image
+        let ciImage = CIImage(cvImageBuffer: buffer)
+
+        // convert corners from normalized image coordinates to pixel coordinates
+        let topLeft = observation.topLeft.scaled(to: ciImage.extent.size)
+        let topRight = observation.topRight.scaled(to: ciImage.extent.size)
+        let bottomLeft = observation.bottomLeft.scaled(to: ciImage.extent.size)
+        let bottomRight = observation.bottomRight.scaled(to: ciImage.extent.size)
+
+        // pass those to the filter to extract/rectify the image
+        return ciImage.applyingFilter("CIPerspectiveCorrection", parameters: [
+            "inputTopLeft": CIVector(cgPoint: topLeft),
+            "inputTopRight": CIVector(cgPoint: topRight),
+            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+            "inputBottomRight": CIVector(cgPoint: bottomRight),
+        ])
+    }
+    
+    func drawVisionRequestResults(_ rectObservations: [VNRectangleObservation], buffer: CVPixelBuffer) {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionOverlay.sublayers = nil // remove all the old recognized objects
-        for observation in results where observation is VNRecognizedObjectObservation {
-            guard let objectObservation = observation as? VNRecognizedObjectObservation else {
-                continue
+        for rectObservation in rectObservations {
+            // do text detection?
+            
+            let image = extractPerspectiveRect(rectObservation, from: buffer)
+            
+            let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
+
+                guard let textObservations = request.results as? [VNRecognizedTextObservation], let sself = self else {
+                    print("The observations are of an unexpected type.")
+                    return
+                }
+                // Concatenate the recognised text from all the observations.
+                let maximumCandidates = 10
+                for textObservation in textObservations {
+                    guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
+
+                    // Select only the label with the highest confidence.
+                    let objectBounds = VNImageRectForNormalizedRect(rectObservation.boundingBox, Int(sself.bufferSize.width), Int(sself.bufferSize.height))
+
+                    let shapeLayer = sself.createRoundedRectLayerWithBounds(objectBounds)
+
+                    let textLayer = sself.createTextSubLayerInBounds(objectBounds,
+                                                                     identifier: candidate.string,
+                                                                    confidence: textObservation.confidence)
+
+                    shapeLayer.addSublayer(textLayer)
+                    sself.detectionOverlay.addSublayer(shapeLayer)
+                }
             }
-            // Select only the label with the highest confidence.
-            let topLabelObservation = objectObservation.labels[0]
-            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
-            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-            
-            let textLayer = self.createTextSubLayerInBounds(objectBounds,
-                                                            identifier: topLabelObservation.identifier,
-                                                            confidence: topLabelObservation.confidence)
-            shapeLayer.addSublayer(textLayer)
-            detectionOverlay.addSublayer(shapeLayer)
+            do {
+                try sequenceHandler.perform([textDetection], on: image)
+            }
+            catch {
+                print(error)
+            }
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -79,6 +96,10 @@ class VisionObjectRecognitionViewController: BFViewController {
             try imageRequestHandler.perform(self.requests)
         } catch {
             print(error)
+        }
+        
+        if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
+            drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
         }
     }
     
@@ -156,4 +177,11 @@ class VisionObjectRecognitionViewController: BFViewController {
         return shapeLayer
     }
     
+}
+
+extension CGPoint {
+   func scaled(to size: CGSize) -> CGPoint {
+       return CGPoint(x: self.x * size.width,
+                      y: self.y * size.height)
+   }
 }

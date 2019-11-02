@@ -27,10 +27,11 @@ final class CameraLayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupLayers()
+        updateLayerGeometry()
+        
         configureCaptureSession()
         session.startRunning()
-        
-        setupLayers()
     }
     
     func configureCaptureSession() {
@@ -112,29 +113,29 @@ final class CameraLayerViewController: UIViewController {
         textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
         textLayer.contentsScale = 2.0 // retina rendering
         // rotate the layer into screen orientation and scale and mirror
-//        textLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: 1.0, y: -1.0))
+        textLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: 1.0, y: -1.0))
         return textLayer
     }
     
     func updateLayerGeometry() {
         let bounds = view.bounds
         var scale: CGFloat
-        
+
         let xScale: CGFloat = bounds.size.width / bufferSize.height
         let yScale: CGFloat = bounds.size.height / bufferSize.width
-        
+
         scale = fmax(xScale, yScale)
         if scale.isInfinite {
             scale = 1.0
         }
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-        
+
         // rotate the layer into screen orientation and scale and mirror
         detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
         // center the layer
         detectionOverlay.position = CGPoint (x: bounds.midX, y: bounds.midY)
-        
+
         CATransaction.commit()
     }
 }
@@ -149,7 +150,6 @@ extension CameraLayerViewController: VisionTrackerProcessorDelegate {
             CATransaction.commit()
             return
         }
-//        detectionOverlay.sublayers = nil
         
         let objectBounds = VNImageRectForNormalizedRect(rectangleObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
         let shapeLayer = createRoundedRectLayerWithBounds(objectBounds)

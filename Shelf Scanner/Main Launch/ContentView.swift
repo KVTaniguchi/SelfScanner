@@ -12,15 +12,21 @@ import Combine
 struct ContentView : View {
 //    @ObservedObject var watcher = Watcher(text: "Watch my value change")
     @State var searchTerm: String = ""
+    @State var showModal = false
  
     var body: some View {
         NavigationView {
             VStack {
                 // text field with clear button
                 TextField("Enter Search Term", text: $searchTerm)
-                NavigationLink(destination: VisualSearchView(searchTerm: searchTerm)) {
-                    Text("Search \(searchTerm)")
-                    }.navigationBarTitle("Searching \(searchTerm)")
+                Button("Show Modal") {
+                    self.showModal.toggle()
+                }.sheet(isPresented: $showModal) {
+                    VisualSearchView(searchTerm: self.searchTerm)
+                 }
+//                NavigationLink(destination: VisualSearchView(searchTerm: searchTerm)) {
+//                    Text("Search \(searchTerm)")
+//                    }.navigationBarTitle("Searching \(searchTerm)")
             }
         }   
     }

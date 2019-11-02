@@ -19,7 +19,6 @@
 		BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110654235213FA007B3433 /* WellnessRecognizer.swift */; };
 		BD72E0E6235D391600F5F5D3 /* VisualSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */; };
 		BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */; };
-		BDC8921A2354190800602A34 /* TextBoxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC892192354190800602A34 /* TextBoxes.swift */; };
 		BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923B2358160200602A34 /* ShelfItem.swift */; };
 		BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */; };
 		BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */; };
@@ -41,7 +40,6 @@
 		BD110654235213FA007B3433 /* WellnessRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessRecognizer.swift; sourceTree = "<group>"; };
 		BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualSearchView.swift; sourceTree = "<group>"; };
 		BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		BDC892192354190800602A34 /* TextBoxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxes.swift; sourceTree = "<group>"; };
 		BDC8923B2358160200602A34 /* ShelfItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItem.swift; sourceTree = "<group>"; };
 		BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinder.swift; sourceTree = "<group>"; };
 		BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinderBaseVC.swift; sourceTree = "<group>"; };
@@ -78,22 +76,17 @@
 		BD110637234859EC007B3433 /* Shelf Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				BD110638234859EC007B3433 /* AppDelegate.swift */,
-				BD11063A234859EC007B3433 /* SceneDelegate.swift */,
-				BD11063C234859EC007B3433 /* ContentView.swift */,
+				BD127A25236E1FE2004B2AC4 /* Main Launch */,
+				BD127A24236E1F5A004B2AC4 /* Models */,
+				BD127A23236E1F43004B2AC4 /* Recognizers */,
 				BD11063E234859ED007B3433 /* Assets.xcassets */,
 				BD110643234859ED007B3433 /* LaunchScreen.storyboard */,
 				BD110646234859ED007B3433 /* Info.plist */,
 				BD110640234859ED007B3433 /* Preview Content */,
 				BD11064C23485C1A007B3433 /* ViewPort.swift */,
-				BD110650234862B9007B3433 /* TextRecognizer.swift */,
 				BD110652234863CC007B3433 /* RecognizedText.swift */,
-				BD110654235213FA007B3433 /* WellnessRecognizer.swift */,
-				BDC892192354190800602A34 /* TextBoxes.swift */,
-				BDC8923B2358160200602A34 /* ShelfItem.swift */,
 				BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */,
 				BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */,
-				BDC89243235CEB8400602A34 /* ItemRecognizer.swift */,
 				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
 				BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */,
 			);
@@ -106,6 +99,34 @@
 				BD110641234859ED007B3433 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BD127A23236E1F43004B2AC4 /* Recognizers */ = {
+			isa = PBXGroup;
+			children = (
+				BD110650234862B9007B3433 /* TextRecognizer.swift */,
+				BDC89243235CEB8400602A34 /* ItemRecognizer.swift */,
+				BD110654235213FA007B3433 /* WellnessRecognizer.swift */,
+			);
+			path = Recognizers;
+			sourceTree = "<group>";
+		};
+		BD127A24236E1F5A004B2AC4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BDC8923B2358160200602A34 /* ShelfItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BD127A25236E1FE2004B2AC4 /* Main Launch */ = {
+			isa = PBXGroup;
+			children = (
+				BD110638234859EC007B3433 /* AppDelegate.swift */,
+				BD11063A234859EC007B3433 /* SceneDelegate.swift */,
+				BD11063C234859EC007B3433 /* ContentView.swift */,
+			);
+			path = "Main Launch";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,7 +201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */,
-				BDC8921A2354190800602A34 /* TextBoxes.swift in Sources */,
 				BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */,
 				BDC89244235CEB8400602A34 /* ItemRecognizer.swift in Sources */,
 				BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */,

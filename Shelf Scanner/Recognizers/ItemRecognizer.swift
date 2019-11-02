@@ -61,6 +61,7 @@ class ItemRecognizer {
             initialRectObservations = rectObservations
 
             for rectangleObservation in rectObservations {
+                let extractedImage = extractPerspectiveRect(rectangleObservation, from: buffer)
                 
                 let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
                     guard let textObservations = request.results as? [VNRecognizedTextObservation] else {
@@ -71,13 +72,13 @@ class ItemRecognizer {
                     let maximumCandidates = 1
                     for observation in textObservations {
                         guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
-                        // a rect that contains text
-//                        self?.delegate?.drawVisionRequestResults(rect, text: candidate.string)
                         self?.delegate?.drawVisionRequestResults(rectangleObservation, text: candidate.string)
+                        let shelfItem = ShelfItem(identifier: UUID().uuidString, name: candidate.string, description: candidate.string, image: extractedImage, frame: rectangleObservation.boundingBox)
+                        self?.recognizedItemPublisher.values.append(shelfItem)
                     }
                 }
                 
-                let extractedImage = extractPerspectiveRect(rectangleObservation, from: buffer)
+                
                 do {
                     try sequenceHandler.perform([textDetection], on: extractedImage)
                 }
