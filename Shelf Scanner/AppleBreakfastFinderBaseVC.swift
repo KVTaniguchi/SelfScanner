@@ -37,8 +37,6 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             previewView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        
     }
     
     override func viewDidLayoutSubviews() {

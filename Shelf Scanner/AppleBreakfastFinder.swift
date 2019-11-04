@@ -1,15 +1,14 @@
 import UIKit
 import AVFoundation
 import Vision
+import NaturalLanguage
 
 class VisionObjectRecognitionViewController: BFViewController {
     private var detectionOverlay: CALayer! = nil
     let sequenceHandler = VNSequenceRequestHandler()
     let rectangleRequest = VNDetectRectanglesRequest()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    let textChecker = UITextChecker()
+    let nlTagger = NLTagger(tagSchemes: [.language])
     
     // Vision parts
     private var requests = [VNRequest]()
@@ -62,8 +61,28 @@ class VisionObjectRecognitionViewController: BFViewController {
                 let maximumCandidates = 10
                 for textObservation in textObservations {
                     guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
+                    
+                    let misspelledRange = sself.textChecker.rangeOfMisspelledWord(in: candidate.string, range: NSRange(0..<candidate.string.utf16.count), startingAt: 0, wrap: true, language: "en_US")
+                    
+                    guard misspelledRange.location == NSNotFound else { continue  }
+                    
+                    print("\n")
+                    print("CANDIDATE: \(candidate.string)")
+                    sself.nlTagger.string = candidate.string
+                    
+                    let x = sself.nlTagger.tag(at: candidate.string.startIndex, unit: .paragraph, scheme: .language)
+                    if let y = x.0 {
+                        print("TAG \(y.rawValue)")
+                        
+                        if y.rawValue != "en" {
+                            print("not drawing!")
+                            continue
+                        }
+                    } else {
+                        print("not drawing!")
+                        continue
+                    }
 
-                    // Select only the label with the highest confidence.
                     let objectBounds = VNImageRectForNormalizedRect(rectObservation.boundingBox, Int(sself.bufferSize.width), Int(sself.bufferSize.height))
 
                     let shapeLayer = sself.createRoundedRectLayerWithBounds(objectBounds)
@@ -103,9 +122,7 @@ class VisionObjectRecognitionViewController: BFViewController {
         }
         
         if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
-            DispatchQueue.main.async { [weak self] in
-                self?.drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
-            }
+            drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
         }
     }
     

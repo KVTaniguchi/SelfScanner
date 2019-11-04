@@ -44,6 +44,7 @@ class ViewCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         self.searchTerm = searchTerm
         itemRecognizer = ItemRecognizer(recognizedItemPublisher: recognizedItemPublisher)
     }
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
           return
