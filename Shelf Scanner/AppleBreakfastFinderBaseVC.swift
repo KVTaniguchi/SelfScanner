@@ -14,7 +14,7 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil
     
-    @IBOutlet weak private var previewView: UIView!
+    private var previewView = UIView()
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer! = nil
     private let videoDataOutput = AVCaptureVideoDataOutput()
@@ -27,6 +27,23 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        previewView.translatesAutoresizingMaskIntoConstraints = false
+        previewView.backgroundColor = .white
+        view.addSubview(previewView)
+        NSLayoutConstraint.activate([
+            previewView.topAnchor.constraint(equalTo: view.topAnchor),
+            previewView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            previewView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         setupAVCapture()
     }
     
@@ -90,12 +107,6 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     func startCaptureSession() {
         session.startRunning()
-    }
-    
-    // Clean up capture setup
-    func teardownAVCapture() {
-        previewLayer.removeFromSuperlayer()
-        previewLayer = nil
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput, didDrop didDropSampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {

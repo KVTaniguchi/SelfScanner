@@ -13,6 +13,7 @@ import VisionKit
 import AVKit
 
 struct ViewPort: UIViewControllerRepresentable {
+    
     let recognizedItemPublisher = RecognizedItemPublisher()
     let searchTerm: String
     
@@ -20,24 +21,22 @@ struct ViewPort: UIViewControllerRepresentable {
         self.searchTerm = searchTerm
     }
     
-    typealias UIViewControllerType = CameraLayerViewController
+    typealias UIViewControllerType = VisionObjectRecognitionViewController
     
-    func makeCoordinator() -> MyCoordinator {
-        return MyCoordinator(recognizedItemPublisher: recognizedItemPublisher, searchTerm: searchTerm)
+    func makeCoordinator() -> ViewCoordinator {
+        return ViewCoordinator(recognizedItemPublisher: recognizedItemPublisher, searchTerm: searchTerm)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ViewPort>) -> CameraLayerViewController {
-        let vc = CameraLayerViewController()
-        vc.sampleOutputDelegate = context.coordinator
-        context.coordinator.itemRecognizer.delegate = vc
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ViewPort>) -> VisionObjectRecognitionViewController {
+        let vc = VisionObjectRecognitionViewController()
         return vc
     }
     
-    func updateUIViewController(_ uiViewController: CameraLayerViewController,
+    func updateUIViewController(_ uiViewController: VisionObjectRecognitionViewController,
                                 context: UIViewControllerRepresentableContext<ViewPort>) { }
 }
 
-class MyCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     var itemRecognizer: ItemRecognizer
     let searchTerm: String
     

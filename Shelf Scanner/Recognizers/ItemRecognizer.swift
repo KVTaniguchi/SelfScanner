@@ -9,17 +9,30 @@
 import Foundation
 import Vision
 import VisionKit
+import UIKit
 
 class ItemRecognizer {
     var recognizedItemPublisher: RecognizedItemPublisher
     weak var delegate: VisionTrackerProcessorDelegate?
-    
     let sequenceHandler = VNSequenceRequestHandler()
+    let rectangleRequest = VNDetectRectanglesRequest()
+    private var requests = [VNRequest]()
     
     private var initialRectObservations = [VNRectangleObservation]()
     
     init(recognizedItemPublisher: RecognizedItemPublisher) {
         self.recognizedItemPublisher = recognizedItemPublisher
+        setupVision()
+    }
+    
+    func setupVision() {
+        rectangleRequest.minimumAspectRatio = VNAspectRatio(0.2)
+        rectangleRequest.maximumAspectRatio = VNAspectRatio(1.0)
+        rectangleRequest.minimumSize = Float(0.1)
+        rectangleRequest.maximumObservations = Int(10)
+        rectangleRequest.minimumConfidence = 0.9
+        
+        self.requests = [rectangleRequest]
     }
     
     func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
@@ -42,54 +55,62 @@ class ItemRecognizer {
     }
     
     func recognizedItem(fromBuffer buffer: CVImageBuffer) {
-        let rectangleDetectionRequest = VNDetectRectanglesRequest()
-        rectangleDetectionRequest.minimumAspectRatio = VNAspectRatio(0.2)
-        rectangleDetectionRequest.maximumAspectRatio = VNAspectRatio(1.0)
-        rectangleDetectionRequest.minimumSize = Float(0.1)
-        rectangleDetectionRequest.maximumObservations = Int(10)
-        rectangleDetectionRequest.minimumConfidence = 0.9
+        let exifOrientation = exifOrientationFromDeviceOrientation()
         
-        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: buffer, orientation: .up, options: [:])
-        
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: buffer, orientation: exifOrientation, options: [:])
         do {
-            try imageRequestHandler.perform([rectangleDetectionRequest])
+            try imageRequestHandler.perform(self.requests)
         } catch {
-            print(error.localizedDescription)
+            print(error)
         }
         
-        if let rectObservations = rectangleDetectionRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
-            initialRectObservations = rectObservations
-
-            for rectangleObservation in rectObservations {
-                let extractedImage = extractPerspectiveRect(rectangleObservation, from: buffer)
+        if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
+            for rectObservation in rectObservations {
+                // do text detection?
+                
+                let image = extractPerspectiveRect(rectObservation, from: buffer)
                 
                 let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
-                    guard let textObservations = request.results as? [VNRecognizedTextObservation] else {
+                    guard let textObservations = request.results as? [VNRecognizedTextObservation], let sself = self else {
                         print("The observations are of an unexpected type.")
                         return
                     }
                     // Concatenate the recognised text from all the observations.
-                    let maximumCandidates = 1
-                    for observation in textObservations {
-                        guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
-                        self?.delegate?.drawVisionRequestResults(rectangleObservation, text: candidate.string)
-                        let shelfItem = ShelfItem(identifier: UUID().uuidString, name: candidate.string, description: candidate.string, image: extractedImage, frame: rectangleObservation.boundingBox)
-                        self?.recognizedItemPublisher.values.append(shelfItem)
+                    let maximumCandidates = 10
+                    for textObservation in textObservations {
+                        guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
+
+                        sself.delegate?.drawVisionRequestResults(rectObservation, text: candidate.string)
                     }
                 }
                 
-                
                 do {
-                    try sequenceHandler.perform([textDetection], on: extractedImage)
+                    try sequenceHandler.perform([textDetection], on: image)
                 }
                 catch {
                     print(error)
                 }
-                
             }
-        } else {
-            delegate?.drawVisionRequestResults(nil, text: nil)
         }
+    }
+    
+    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+        let curDeviceOrientation = UIDevice.current.orientation
+        let exifOrientation: CGImagePropertyOrientation
+        
+        switch curDeviceOrientation {
+        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
+            exifOrientation = .left
+        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
+            exifOrientation = .upMirrored
+        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
+            exifOrientation = .down
+        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
+            exifOrientation = .up
+        default:
+            exifOrientation = .up
+        }
+        return exifOrientation
     }
 }
 
@@ -137,12 +158,4 @@ struct TrackedObjectsPalette {
 
 protocol VisionTrackerProcessorDelegate: class {
     func drawVisionRequestResults(_ rectangleObservation: VNRectangleObservation?, text: String?)
-    func displayFrameCounter(_ frame: Int)
-}
-
-extension CGPoint {
-   func scaled(to size: CGSize) -> CGPoint {
-       return CGPoint(x: self.x * size.width,
-                      y: self.y * size.height)
-   }
 }

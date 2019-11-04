@@ -7,6 +7,10 @@ class VisionObjectRecognitionViewController: BFViewController {
     let sequenceHandler = VNSequenceRequestHandler()
     let rectangleRequest = VNDetectRectanglesRequest()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     // Vision parts
     private var requests = [VNRequest]()
     
@@ -99,7 +103,9 @@ class VisionObjectRecognitionViewController: BFViewController {
         }
         
         if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
-            drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
+            DispatchQueue.main.async { [weak self] in
+                self?.drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
+            }
         }
     }
     

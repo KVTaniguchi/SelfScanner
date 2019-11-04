@@ -15,7 +15,6 @@
 		BD110645234859ED007B3433 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD110643234859ED007B3433 /* LaunchScreen.storyboard */; };
 		BD11064D23485C1A007B3433 /* ViewPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11064C23485C1A007B3433 /* ViewPort.swift */; };
 		BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110650234862B9007B3433 /* TextRecognizer.swift */; };
-		BD110653234863CC007B3433 /* RecognizedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110652234863CC007B3433 /* RecognizedText.swift */; };
 		BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110654235213FA007B3433 /* WellnessRecognizer.swift */; };
 		BD72E0E6235D391600F5F5D3 /* VisualSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */; };
 		BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */; };
@@ -36,7 +35,6 @@
 		BD110646234859ED007B3433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD11064C23485C1A007B3433 /* ViewPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPort.swift; sourceTree = "<group>"; };
 		BD110650234862B9007B3433 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
-		BD110652234863CC007B3433 /* RecognizedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizedText.swift; sourceTree = "<group>"; };
 		BD110654235213FA007B3433 /* WellnessRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessRecognizer.swift; sourceTree = "<group>"; };
 		BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualSearchView.swift; sourceTree = "<group>"; };
 		BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -76,15 +74,14 @@
 		BD110637234859EC007B3433 /* Shelf Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				BD127A26236FD080004B2AC4 /* Apple Example Code  */,
 				BD127A25236E1FE2004B2AC4 /* Main Launch */,
 				BD127A24236E1F5A004B2AC4 /* Models */,
 				BD127A23236E1F43004B2AC4 /* Recognizers */,
 				BD11063E234859ED007B3433 /* Assets.xcassets */,
-				BD110643234859ED007B3433 /* LaunchScreen.storyboard */,
 				BD110646234859ED007B3433 /* Info.plist */,
 				BD110640234859ED007B3433 /* Preview Content */,
 				BD11064C23485C1A007B3433 /* ViewPort.swift */,
-				BD110652234863CC007B3433 /* RecognizedText.swift */,
 				BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */,
 				BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */,
 				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
@@ -125,8 +122,16 @@
 				BD110638234859EC007B3433 /* AppDelegate.swift */,
 				BD11063A234859EC007B3433 /* SceneDelegate.swift */,
 				BD11063C234859EC007B3433 /* ContentView.swift */,
+				BD110643234859ED007B3433 /* LaunchScreen.storyboard */,
 			);
 			path = "Main Launch";
+			sourceTree = "<group>";
+		};
+		BD127A26236FD080004B2AC4 /* Apple Example Code  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Apple Example Code ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +213,6 @@
 				BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */,
 				BD110639234859EC007B3433 /* AppDelegate.swift in Sources */,
 				BD11064D23485C1A007B3433 /* ViewPort.swift in Sources */,
-				BD110653234863CC007B3433 /* RecognizedText.swift in Sources */,
 				BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */,
 				BD11063B234859EC007B3433 /* SceneDelegate.swift in Sources */,
 				BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */,
