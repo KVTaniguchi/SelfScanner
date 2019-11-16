@@ -5,6 +5,7 @@ Abstract:
 Contains the view controller for the Breakfast Finder.
 */
 
+import CoreHaptics
 import UIKit
 import AVFoundation
 import Vision
@@ -18,6 +19,7 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer! = nil
     private let videoDataOutput = AVCaptureVideoDataOutput()
+    var hapticEngine: CHHapticEngine?
     
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
@@ -37,6 +39,8 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             previewView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        setupHaptics()
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,6 +52,17 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        
+        do {
+            hapticEngine = try CHHapticEngine()
+            try hapticEngine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
+        }
     }
     
     func setupAVCapture() {

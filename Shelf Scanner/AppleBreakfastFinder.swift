@@ -1,14 +1,14 @@
+
+import CoreHaptics
 import UIKit
 import AVFoundation
 import Vision
-import NaturalLanguage
 
 class VisionObjectRecognitionViewController: BFViewController {
     private var detectionOverlay: CALayer! = nil
     let sequenceHandler = VNSequenceRequestHandler()
     let rectangleRequest = VNDetectRectanglesRequest()
     let textChecker = UITextChecker()
-    let nlTagger = NLTagger(tagSchemes: [.language])
     
     // Vision parts
     private var requests = [VNRequest]()
@@ -21,6 +21,20 @@ class VisionObjectRecognitionViewController: BFViewController {
         rectangleRequest.minimumConfidence = 0.9
         
         self.requests = [rectangleRequest]
+    }
+    
+    func playHaptic() {
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.3)
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
+        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let player = try hapticEngine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription).")
+        }
     }
     
     func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
@@ -45,7 +59,10 @@ class VisionObjectRecognitionViewController: BFViewController {
     func drawVisionRequestResults(_ rectObservations: [VNRectangleObservation], buffer: CVPixelBuffer) {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-        detectionOverlay.sublayers = nil // remove all the old recognized objects
+        CATransaction.setCompletionBlock { [weak self] in
+            self?.detectionOverlay.sublayers = nil // remove all the old recognized objects
+        }
+        
         for rectObservation in rectObservations {
             // do text detection?
             
@@ -61,27 +78,6 @@ class VisionObjectRecognitionViewController: BFViewController {
                 let maximumCandidates = 10
                 for textObservation in textObservations {
                     guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
-                    
-                    let misspelledRange = sself.textChecker.rangeOfMisspelledWord(in: candidate.string, range: NSRange(0..<candidate.string.utf16.count), startingAt: 0, wrap: true, language: "en_US")
-                    
-                    guard misspelledRange.location == NSNotFound else { continue  }
-                    
-                    print("\n")
-                    print("CANDIDATE: \(candidate.string)")
-                    sself.nlTagger.string = candidate.string
-                    
-                    let x = sself.nlTagger.tag(at: candidate.string.startIndex, unit: .paragraph, scheme: .language)
-                    if let y = x.0 {
-                        print("TAG \(y.rawValue)")
-                        
-                        if y.rawValue != "en" {
-                            print("not drawing!")
-                            continue
-                        }
-                    } else {
-                        print("not drawing!")
-                        continue
-                    }
 
                     let objectBounds = VNImageRectForNormalizedRect(rectObservation.boundingBox, Int(sself.bufferSize.width), Int(sself.bufferSize.height))
 
@@ -90,9 +86,18 @@ class VisionObjectRecognitionViewController: BFViewController {
                     let textLayer = sself.createTextSubLayerInBounds(objectBounds,
                                                                      identifier: candidate.string,
                                                                     confidence: textObservation.confidence)
+                    
+                    let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+                    fadeAnimation.fromValue = 1
+                    fadeAnimation.toValue = 0
+                    fadeAnimation.duration = 4.0
+                    fadeAnimation.isRemovedOnCompletion = true
+                    print("adding layer")
+                    shapeLayer.add(fadeAnimation, forKey: nil)
 
                     shapeLayer.addSublayer(textLayer)
                     sself.detectionOverlay.addSublayer(shapeLayer)
+                    sself.playHaptic()
                 }
             }
             

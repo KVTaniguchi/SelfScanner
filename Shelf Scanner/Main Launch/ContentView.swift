@@ -14,17 +14,15 @@ struct ContentView : View {
     @State var showModal = false
  
     var body: some View {
-        NavigationView {
-            VStack {
-                // text field with clear button
-                TextField("Enter Search Term", text: $searchTerm)
-                Button("Show Modal") {
-                    self.showModal.toggle()
-                }.sheet(isPresented: $showModal) {
-                    VisualSearchView(searchTerm: self.searchTerm)
-                }
+        VStack(alignment: .leading, spacing: 20.0, content: {
+            // text field with clear button
+            TextField("Enter Search Term", text: $searchTerm).accentColor(.green)
+            Button("Show Modal") {
+                self.showModal.toggle()
+            }.sheet(isPresented: $showModal) {
+                VisualSearchView(searchTerm: self.searchTerm)
             }
-        }   
+            }).padding()
     }
 }
 
