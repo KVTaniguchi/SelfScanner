@@ -19,7 +19,18 @@ class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer! = nil
     private let videoDataOutput = AVCaptureVideoDataOutput()
+    let searchTerm: String
     var hapticEngine: CHHapticEngine?
+    
+    init(searchTerm: String) {
+        self.searchTerm = searchTerm
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     

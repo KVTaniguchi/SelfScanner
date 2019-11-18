@@ -18,6 +18,7 @@
 		BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110654235213FA007B3433 /* WellnessRecognizer.swift */; };
 		BD72E0E6235D391600F5F5D3 /* VisualSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */; };
 		BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */; };
+		BD8943B52382558D0011B64A /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8943B42382558D0011B64A /* ViewCoordinator.swift */; };
 		BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923B2358160200602A34 /* ShelfItem.swift */; };
 		BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */; };
 		BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */; };
@@ -38,6 +39,7 @@
 		BD110654235213FA007B3433 /* WellnessRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessRecognizer.swift; sourceTree = "<group>"; };
 		BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualSearchView.swift; sourceTree = "<group>"; };
 		BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		BD8943B42382558D0011B64A /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
 		BDC8923B2358160200602A34 /* ShelfItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItem.swift; sourceTree = "<group>"; };
 		BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinder.swift; sourceTree = "<group>"; };
 		BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinderBaseVC.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		BD110637234859EC007B3433 /* Shelf Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				BD8943B32382557C0011B64A /* Coordinator */,
 				BD127A26236FD080004B2AC4 /* Apple Example Code  */,
 				BD127A25236E1FE2004B2AC4 /* Main Launch */,
 				BD127A24236E1F5A004B2AC4 /* Models */,
@@ -132,6 +135,14 @@
 			children = (
 			);
 			path = "Apple Example Code ";
+			sourceTree = "<group>";
+		};
+		BD8943B32382557C0011B64A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				BD8943B42382558D0011B64A /* ViewCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */,
+				BD8943B52382558D0011B64A /* ViewCoordinator.swift in Sources */,
 				BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */,
 				BDC89244235CEB8400602A34 /* ItemRecognizer.swift in Sources */,
 				BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */,

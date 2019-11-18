@@ -78,6 +78,8 @@ class VisionObjectRecognitionViewController: BFViewController {
                 let maximumCandidates = 10
                 for textObservation in textObservations {
                     guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
+                    
+                    guard candidate.string.lowercased().contains(self!.searchTerm.lowercased()) else { continue }
 
                     let objectBounds = VNImageRectForNormalizedRect(rectObservation.boundingBox, Int(sself.bufferSize.width), Int(sself.bufferSize.height))
 
@@ -92,7 +94,6 @@ class VisionObjectRecognitionViewController: BFViewController {
                     fadeAnimation.toValue = 0
                     fadeAnimation.duration = 4.0
                     fadeAnimation.isRemovedOnCompletion = true
-                    print("adding layer")
                     shapeLayer.add(fadeAnimation, forKey: nil)
 
                     shapeLayer.addSublayer(textLayer)
