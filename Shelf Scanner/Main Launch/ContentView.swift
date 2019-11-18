@@ -15,16 +15,16 @@ struct ContentView : View {
  
     var body: some View {
         ZStack {
-            Color.gray
+            Color.black
             .edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading, spacing: 20.0, content: {
-                TextField("Enter Search Term", text: $searchTerm).accentColor(.green).padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50))
+            VStack(alignment: .center, spacing: 20.0, content: {
+                TextField("Enter Search Term", text: $searchTerm).accentColor(.green).padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50)).background(Color.black)
                 Button("Search") {
                     self.showModal.toggle()
                 }.sheet(isPresented: $showModal) {
                     VisualSearchView(searchTerm: self.searchTerm)
                 }
-            }).padding(.horizontal, 60)
+            }).padding(.horizontal, 60).background(Color(.black))
         }
     }
 }

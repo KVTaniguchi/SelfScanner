@@ -64,8 +64,6 @@ class VisionObjectRecognitionViewController: BFViewController {
         }
         
         for rectObservation in rectObservations {
-            // do text detection?
-            
             let image = extractPerspectiveRect(rectObservation, from: buffer)
             
             let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
