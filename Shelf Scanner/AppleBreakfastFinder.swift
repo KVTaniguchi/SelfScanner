@@ -23,7 +23,7 @@ class VisionObjectRecognitionViewController: BFViewController {
         self.requests = [rectangleRequest]
     }
     
-    func playHaptic() {
+    private func playHaptic() {
         let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.3)
         let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
         let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)

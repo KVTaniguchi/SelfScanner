@@ -72,7 +72,7 @@ class ItemRecognizer {
                 
                 let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
                     guard let textObservations = request.results as? [VNRecognizedTextObservation], let sself = self else {
-                        print("The observations are of an unexpected type.")
+                        assertionFailure("The observations are of an unexpected type.")
                         return
                     }
                     // Concatenate the recognised text from all the observations.
@@ -94,7 +94,7 @@ class ItemRecognizer {
         }
     }
     
-    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+    func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
         let curDeviceOrientation = UIDevice.current.orientation
         let exifOrientation: CGImagePropertyOrientation
         
@@ -112,13 +112,6 @@ class ItemRecognizer {
         }
         return exifOrientation
     }
-}
-
-enum VisionTrackerProcessorError: Error {
-    case readerInitializationFailed
-    case firstFrameReadFailed
-    case objectTrackingFailed
-    case rectangleDetectionFailed
 }
 
 struct TrackedObjectsPalette {

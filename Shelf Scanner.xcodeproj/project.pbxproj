@@ -19,6 +19,7 @@
 		BD72E0E6235D391600F5F5D3 /* VisualSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */; };
 		BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */; };
 		BD8943B52382558D0011B64A /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8943B42382558D0011B64A /* ViewCoordinator.swift */; };
+		BD8A384823D415A0003EC183 /* VisionErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8A384723D415A0003EC183 /* VisionErrors.swift */; };
 		BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923B2358160200602A34 /* ShelfItem.swift */; };
 		BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */; };
 		BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */; };
@@ -40,6 +41,7 @@
 		BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualSearchView.swift; sourceTree = "<group>"; };
 		BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		BD8943B42382558D0011B64A /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
+		BD8A384723D415A0003EC183 /* VisionErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionErrors.swift; sourceTree = "<group>"; };
 		BDC8923B2358160200602A34 /* ShelfItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItem.swift; sourceTree = "<group>"; };
 		BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinder.swift; sourceTree = "<group>"; };
 		BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinderBaseVC.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				BDC8923B2358160200602A34 /* ShelfItem.swift */,
+				BD8A384723D415A0003EC183 /* VisionErrors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */,
 				BD11063B234859EC007B3433 /* SceneDelegate.swift in Sources */,
 				BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */,
+				BD8A384823D415A0003EC183 /* VisionErrors.swift in Sources */,
 				BD11063D234859EC007B3433 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
