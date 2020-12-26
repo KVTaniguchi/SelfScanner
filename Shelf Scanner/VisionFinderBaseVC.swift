@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class BFViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class VisionBaseViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil

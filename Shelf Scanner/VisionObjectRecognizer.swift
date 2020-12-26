@@ -4,7 +4,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class VisionObjectRecognitionViewController: BFViewController {
+class VisionObjectRecognitionViewController: VisionBaseViewController {
     private var detectionOverlay: CALayer! = nil
     let sequenceHandler = VNSequenceRequestHandler()
     let rectangleRequest = VNDetectRectanglesRequest()
@@ -66,42 +66,21 @@ class VisionObjectRecognitionViewController: BFViewController {
         for rectObservation in rectObservations {
             let image = extractPerspectiveRect(rectObservation, from: buffer)
             
-            let textDetection = VNRecognizeTextRequest { [weak self] (request, error) in
-
-                guard let textObservations = request.results as? [VNRecognizedTextObservation], let sself = self else {
-                    print("The observations are of an unexpected type.")
+            let imageClassification = VNClassifyImageRequest { (request, error) in
+                guard let obs = request.results as? [VNClassificationObservation] else {
                     return
                 }
-                // Concatenate the recognised text from all the observations.
-                let maximumCandidates = 10
-                for textObservation in textObservations {
-                    guard let candidate = textObservation.topCandidates(maximumCandidates).first else { continue }
+                
+                for ob in obs {
+                    if ob.confidence > 0.5 {
+                        print("\(ob.identifier) \(ob.confidence)")
+                    }
                     
-                    guard candidate.string.lowercased().contains(self!.searchTerm.lowercased()) else { continue }
-
-                    let objectBounds = VNImageRectForNormalizedRect(rectObservation.boundingBox, Int(sself.bufferSize.width), Int(sself.bufferSize.height))
-
-                    let shapeLayer = sself.createRoundedRectLayerWithBounds(objectBounds)
-
-                    let textLayer = sself.createTextSubLayerInBounds(objectBounds,
-                                                                     identifier: candidate.string,
-                                                                    confidence: textObservation.confidence)
-                    
-                    let fadeAnimation = CABasicAnimation(keyPath: "opacity")
-                    fadeAnimation.fromValue = 1
-                    fadeAnimation.toValue = 0
-                    fadeAnimation.duration = 4.0
-                    fadeAnimation.isRemovedOnCompletion = true
-                    shapeLayer.add(fadeAnimation, forKey: nil)
-
-                    shapeLayer.addSublayer(textLayer)
-                    sself.detectionOverlay.addSublayer(shapeLayer)
-                    sself.playHaptic()
                 }
             }
             
             do {
-                try sequenceHandler.perform([textDetection], on: image)
+                try sequenceHandler.perform([imageClassification], on: image)
             }
             catch {
                 print(error)

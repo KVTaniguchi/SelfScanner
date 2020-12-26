@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD110639234859EC007B3433 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110638234859EC007B3433 /* AppDelegate.swift */; };
-		BD11063B234859EC007B3433 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11063A234859EC007B3433 /* SceneDelegate.swift */; };
 		BD11063D234859EC007B3433 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11063C234859EC007B3433 /* ContentView.swift */; };
 		BD11063F234859ED007B3433 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD11063E234859ED007B3433 /* Assets.xcassets */; };
 		BD110642234859ED007B3433 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD110641234859ED007B3433 /* Preview Assets.xcassets */; };
@@ -20,16 +18,15 @@
 		BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */; };
 		BD8943B52382558D0011B64A /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8943B42382558D0011B64A /* ViewCoordinator.swift */; };
 		BD8A384823D415A0003EC183 /* VisionErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8A384723D415A0003EC183 /* VisionErrors.swift */; };
+		BD9622372596E02B0059D08D /* AppMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9622362596E02B0059D08D /* AppMain.swift */; };
 		BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923B2358160200602A34 /* ShelfItem.swift */; };
-		BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */; };
-		BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */; };
+		BDC8923E23582A8300602A34 /* VisionObjectRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923D23582A8300602A34 /* VisionObjectRecognizer.swift */; };
+		BDC8924023582AE400602A34 /* VisionFinderBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC8923F23582AE400602A34 /* VisionFinderBaseVC.swift */; };
 		BDC89244235CEB8400602A34 /* ItemRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC89243235CEB8400602A34 /* ItemRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BD110635234859EC007B3433 /* Shelf Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shelf Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD110638234859EC007B3433 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BD11063A234859EC007B3433 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BD11063C234859EC007B3433 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD11063E234859ED007B3433 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD110641234859ED007B3433 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -42,9 +39,10 @@
 		BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		BD8943B42382558D0011B64A /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
 		BD8A384723D415A0003EC183 /* VisionErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionErrors.swift; sourceTree = "<group>"; };
+		BD9622362596E02B0059D08D /* AppMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMain.swift; sourceTree = "<group>"; };
 		BDC8923B2358160200602A34 /* ShelfItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItem.swift; sourceTree = "<group>"; };
-		BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinder.swift; sourceTree = "<group>"; };
-		BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleBreakfastFinderBaseVC.swift; sourceTree = "<group>"; };
+		BDC8923D23582A8300602A34 /* VisionObjectRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionObjectRecognizer.swift; sourceTree = "<group>"; };
+		BDC8923F23582AE400602A34 /* VisionFinderBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionFinderBaseVC.swift; sourceTree = "<group>"; };
 		BDC89243235CEB8400602A34 /* ItemRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				BD8943B32382557C0011B64A /* Coordinator */,
-				BD127A26236FD080004B2AC4 /* Apple Example Code  */,
 				BD127A25236E1FE2004B2AC4 /* Main Launch */,
 				BD127A24236E1F5A004B2AC4 /* Models */,
 				BD127A23236E1F43004B2AC4 /* Recognizers */,
@@ -87,8 +84,8 @@
 				BD110646234859ED007B3433 /* Info.plist */,
 				BD110640234859ED007B3433 /* Preview Content */,
 				BD11064C23485C1A007B3433 /* ViewPort.swift */,
-				BDC8923D23582A8300602A34 /* AppleBreakfastFinder.swift */,
-				BDC8923F23582AE400602A34 /* AppleBreakfastFinderBaseVC.swift */,
+				BDC8923D23582A8300602A34 /* VisionObjectRecognizer.swift */,
+				BDC8923F23582AE400602A34 /* VisionFinderBaseVC.swift */,
 				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
 				BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */,
 			);
@@ -125,19 +122,11 @@
 		BD127A25236E1FE2004B2AC4 /* Main Launch */ = {
 			isa = PBXGroup;
 			children = (
-				BD110638234859EC007B3433 /* AppDelegate.swift */,
-				BD11063A234859EC007B3433 /* SceneDelegate.swift */,
 				BD11063C234859EC007B3433 /* ContentView.swift */,
 				BD110643234859ED007B3433 /* LaunchScreen.storyboard */,
+				BD9622362596E02B0059D08D /* AppMain.swift */,
 			);
 			path = "Main Launch";
-			sourceTree = "<group>";
-		};
-		BD127A26236FD080004B2AC4 /* Apple Example Code  */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Apple Example Code ";
 			sourceTree = "<group>";
 		};
 		BD8943B32382557C0011B64A /* Coordinator */ = {
@@ -175,7 +164,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Kevin Taniguchi";
 				TargetAttributes = {
 					BD110634234859EC007B3433 = {
@@ -219,17 +208,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDC8924023582AE400602A34 /* AppleBreakfastFinderBaseVC.swift in Sources */,
+				BDC8924023582AE400602A34 /* VisionFinderBaseVC.swift in Sources */,
 				BD8943B52382558D0011B64A /* ViewCoordinator.swift in Sources */,
 				BD110655235213FA007B3433 /* WellnessRecognizer.swift in Sources */,
 				BDC89244235CEB8400602A34 /* ItemRecognizer.swift in Sources */,
-				BDC8923E23582A8300602A34 /* AppleBreakfastFinder.swift in Sources */,
+				BD9622372596E02B0059D08D /* AppMain.swift in Sources */,
+				BDC8923E23582A8300602A34 /* VisionObjectRecognizer.swift in Sources */,
 				BD72E0E6235D391600F5F5D3 /* VisualSearchView.swift in Sources */,
 				BDC8923C2358160200602A34 /* ShelfItem.swift in Sources */,
-				BD110639234859EC007B3433 /* AppDelegate.swift in Sources */,
 				BD11064D23485C1A007B3433 /* ViewPort.swift in Sources */,
 				BD72E0E8235D3D5D00F5F5D3 /* CameraViewController.swift in Sources */,
-				BD11063B234859EC007B3433 /* SceneDelegate.swift in Sources */,
 				BD110651234862B9007B3433 /* TextRecognizer.swift in Sources */,
 				BD8A384823D415A0003EC183 /* VisionErrors.swift in Sources */,
 				BD11063D234859EC007B3433 /* ContentView.swift in Sources */,
@@ -276,6 +264,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -300,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -336,6 +325,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -354,7 +344,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
