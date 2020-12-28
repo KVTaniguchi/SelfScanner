@@ -24,14 +24,18 @@ struct ViewPort: UIViewControllerRepresentable {
     typealias UIViewControllerType = VisionObjectRecognitionViewController
     
     func makeCoordinator() -> ViewCoordinator {
-        return ViewCoordinator(recognizedItemPublisher: recognizedItemPublisher, searchTerm: searchTerm)
+        ViewCoordinator(recognizedItemPublisher: recognizedItemPublisher, searchTerm: searchTerm)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ViewPort>) -> VisionObjectRecognitionViewController {
-        let vc = VisionObjectRecognitionViewController(searchTerm: searchTerm)
-        return vc
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<ViewPort>
+    ) -> VisionObjectRecognitionViewController {
+        VisionObjectRecognitionViewController(searchTerm: searchTerm)
     }
     
-    func updateUIViewController(_ uiViewController: VisionObjectRecognitionViewController,
-                                context: UIViewControllerRepresentableContext<ViewPort>) { }
+    func updateUIViewController(
+        _ uiViewController: VisionObjectRecognitionViewController,
+                                
+        context: UIViewControllerRepresentableContext<ViewPort>
+    ) {}
 }

@@ -15,8 +15,6 @@ struct ContentView : View {
  
     var body: some View {
         ZStack {
-            Color.black
-            .edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 40.0, content: {
                 TextField("Enter Search Term", text: $searchTerm).accentColor(.green).padding(EdgeInsets(top: 90, leading: 50, bottom: 0, trailing: 50)).background(Color.black)
                 Button("Search") {
@@ -26,7 +24,6 @@ struct ContentView : View {
                 }
                 Spacer()
             }).padding(.horizontal, 60).background(Color(.black))
-            
         }
     }
 }

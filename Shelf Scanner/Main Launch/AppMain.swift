@@ -16,3 +16,8 @@ struct ShelfScanner: App {
         }
     }
 }
+
+// todo play around with something that really pushes the Vision recognition in weird
+// and novel ways
+
+// what are all the Vision tools I can leverage?

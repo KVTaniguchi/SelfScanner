@@ -140,6 +140,10 @@ final class CameraLayerViewController: UIViewController {
     }
 }
 
+// reconfigure this so its just a rectangle detector for now
+
+
+
 extension CameraLayerViewController: VisionTrackerProcessorDelegate {
     func drawVisionRequestResults(_ rectangleObservation: VNRectangleObservation?, text: String?) {
         CATransaction.begin()
