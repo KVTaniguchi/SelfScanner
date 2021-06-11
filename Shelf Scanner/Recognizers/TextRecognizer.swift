@@ -1,11 +1,3 @@
-//
-//  TextRecognizer.swift
-//  Shelf Scanner
-//
-//  Created by Kevin Taniguchi on 10/5/19.
-//  Copyright © 2019 Kevin Taniguchi. All rights reserved.
-//
-
 import Foundation
 import Vision
 import VisionKit

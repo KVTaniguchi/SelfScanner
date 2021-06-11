@@ -1,4 +1,3 @@
-
 import CoreHaptics
 import UIKit
 import AVFoundation
@@ -75,7 +74,6 @@ class VisionObjectRecognitionViewController: VisionBaseViewController {
                     if ob.confidence > 0.5 {
                         print("\(ob.identifier) \(ob.confidence)")
                     }
-                    
                 }
             }
             

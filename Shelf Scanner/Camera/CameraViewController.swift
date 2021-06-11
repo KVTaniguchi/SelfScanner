@@ -1,11 +1,3 @@
-//
-//  CameraViewController.swift
-//  Shelf Scanner
-//
-//  Created by Kevin Taniguchi on 10/20/19.
-//  Copyright © 2019 Kevin Taniguchi. All rights reserved.
-//
-
 import AVFoundation
 import Foundation
 import UIKit
@@ -141,9 +133,6 @@ final class CameraLayerViewController: UIViewController {
 }
 
 // reconfigure this so its just a rectangle detector for now
-
-
-
 extension CameraLayerViewController: VisionTrackerProcessorDelegate {
     func drawVisionRequestResults(_ rectangleObservation: VNRectangleObservation?, text: String?) {
         CATransaction.begin()
