@@ -35,7 +35,6 @@ struct ViewPort: UIViewControllerRepresentable {
     
     func updateUIViewController(
         _ uiViewController: VisionObjectRecognitionViewController,
-                                
         context: UIViewControllerRepresentableContext<ViewPort>
     ) {}
 }

@@ -83,11 +83,8 @@
 				BD11063E234859ED007B3433 /* Assets.xcassets */,
 				BD110646234859ED007B3433 /* Info.plist */,
 				BD110640234859ED007B3433 /* Preview Content */,
-				BD11064C23485C1A007B3433 /* ViewPort.swift */,
-				BDC8923D23582A8300602A34 /* VisionObjectRecognizer.swift */,
-				BDC8923F23582AE400602A34 /* VisionFinderBaseVC.swift */,
-				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
-				BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */,
+				BD4537A2267315FB007903E7 /* Views */,
+				BD4537A1267315E2007903E7 /* Camera */,
 			);
 			path = "Shelf Scanner";
 			sourceTree = "<group>";
@@ -103,6 +100,7 @@
 		BD127A23236E1F43004B2AC4 /* Recognizers */ = {
 			isa = PBXGroup;
 			children = (
+				BDC8923D23582A8300602A34 /* VisionObjectRecognizer.swift */,
 				BD110650234862B9007B3433 /* TextRecognizer.swift */,
 				BDC89243235CEB8400602A34 /* ItemRecognizer.swift */,
 				BD110654235213FA007B3433 /* WellnessRecognizer.swift */,
@@ -127,6 +125,24 @@
 				BD9622362596E02B0059D08D /* AppMain.swift */,
 			);
 			path = "Main Launch";
+			sourceTree = "<group>";
+		};
+		BD4537A1267315E2007903E7 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				BD72E0E7235D3D5D00F5F5D3 /* CameraViewController.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		BD4537A2267315FB007903E7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BD11064C23485C1A007B3433 /* ViewPort.swift */,
+				BDC8923F23582AE400602A34 /* VisionFinderBaseVC.swift */,
+				BD72E0E5235D391600F5F5D3 /* VisualSearchView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		BD8943B32382557C0011B64A /* Coordinator */ = {
