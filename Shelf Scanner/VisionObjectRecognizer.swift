@@ -104,7 +104,7 @@ class VisionObjectRecognitionViewController: VisionBaseViewController {
             print(error)
         }
         
-        if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
+        if let rectObservations = rectangleRequest.results, !rectObservations.isEmpty {
             drawVisionRequestResults(rectObservations, buffer: pixelBuffer)
         }
     }

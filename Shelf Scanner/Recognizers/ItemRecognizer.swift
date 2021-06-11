@@ -64,7 +64,7 @@ class ItemRecognizer {
             print(error)
         }
         
-        if let rectObservations = rectangleRequest.results as? [VNRectangleObservation], !rectObservations.isEmpty {
+        if let rectObservations = rectangleRequest.results, !rectObservations.isEmpty {
             for rectObservation in rectObservations {
                 // do text detection?
                 
@@ -149,6 +149,6 @@ struct TrackedObjectsPalette {
     }
 }
 
-protocol VisionTrackerProcessorDelegate: class {
+protocol VisionTrackerProcessorDelegate: AnyObject {
     func drawVisionRequestResults(_ rectangleObservation: VNRectangleObservation?, text: String?)
 }
